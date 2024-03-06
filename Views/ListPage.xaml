@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileAppDevelopment.Views.ListPage"
+             Title="ListPage"
+             xmlns:models="clr-namespace:MobileAppDevelopment.Models"
+             xmlns:viewmodels="clr-namespace:MobileAppDevelopment.ViewModels">
+
+
+
+    <ScrollView VerticalOptions="Start">
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+
+
+
+
+
+        <SearchBar x:Name="searchBar"
+                Placeholder="Search by title"
+                Text="{Binding Source={StaticResource ViewModel}, Path=SearchTerm, Mode=TwoWay}"
+                SearchCommand="{Binding PerformSearch}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+
+        <StackLayout Grid.Column="1"
+                 Orientation="Horizontal"
+                 Spacing="5"
+                 HorizontalOptions="Center">
+
+            <Button Text="Clear Search"
+                    TextColor="{StaticResource Primary}"
+                    WidthRequest="150"
+                    HeightRequest="40"
+                    BackgroundColor="Transparent"
+                    BorderColor="{StaticResource Primary}"
+                    BorderWidth="2"
+                    CornerRadius="20"
+                    Command="{Binding ClearCommand}" />
+        </StackLayout>
+
+        <CollectionView
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                ItemsSource="{Binding WatchedMovies}"
+                SelectionMode="None">
+        <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:Movie">
+                <Grid Padding="10">
+                    <Frame HeightRequest="125"
+                               Style="{StaticResource CardView}">
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MoviesViewModel}}, Path=GoToDetailsCommand}"
+                                    CommandParameter="{Binding .}"/>
+
+                        </Frame.GestureRecognizers>
+
+
+                        <Grid Padding="0" ColumnDefinitions="125,*">
+                            <Image Aspect="AspectFill" Source="{Binding Poster}"
+                                       WidthRequest="125"
+                                       HeightRequest="125"/>
+                            <VerticalStackLayout
+                                    VerticalOptions="Center"
+                                    Grid.Column="1"
+                                    Padding="10">
+                                <Label Style="{StaticResource LargeLabel}" Text="{Binding Title}" />
+                                <Label Style="{StaticResource MediumLabel}" Text="{Binding Year}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+
+
+    </Grid>
+    </ScrollView>
+</ContentPage>

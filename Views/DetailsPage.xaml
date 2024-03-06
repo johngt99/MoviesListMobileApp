@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileAppDevelopment.Views.DetailsPage"
+             xmlns:viewmodels="clr-namespace:MobileAppDevelopment.ViewModels"
+             x:DataType="viewmodels:MovieDetailsViewModel"
+             Title="Movie Details">
+
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*,Auto,*"
+                  RowDefinitions="160, Auto">
+
+                <BoxView Color="{StaticResource Primary}"
+                         Grid.ColumnSpan="3"
+                         HeightRequest="160"
+                         HorizontalOptions="FillAndExpand"/>
+                
+                
+
+                <HorizontalStackLayout Padding="10" Spacing="10">
+
+                    <Frame Grid.RowSpan="2"
+                       Grid.Column="1"
+                       HeightRequest="260"
+                       WidthRequest="160"
+                       HorizontalOptions="Center"
+                       IsClippedToBounds="True"
+                       Padding="0"
+                       Margin="10,200,0,0">
+
+                        <Image Aspect="AspectFill"
+                           HeightRequest="260"
+                           WidthRequest="160"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Source="{Binding Movie.Poster}"/>
+
+                    </Frame>
+
+                    <Label Text="{Binding Movie.Title}"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           TextColor="White"
+                           VerticalOptions="Center"
+                           Margin="0,90,0,0"/>
+
+                </HorizontalStackLayout>
+
+                
+
+            </Grid>
+
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <Label Text="{Binding Movie.Genre}" HorizontalOptions="Center" Margin="140,0,0,0"/>
+                <Label Text="{Binding Movie.Year}" HorizontalOptions="Center"/>
+                <Label Text="{Binding Movie.Ratings}" FontSize="30" HorizontalOptions="Center"/>
+                <Label Text="{Binding Movie.Plot}" Margin="0,60,0,0"/>
+            </VerticalStackLayout>
+
+            <Button Text="Add to Watchlist"
+                    HorizontalOptions="Center"
+                    Margin="10"
+                    Command="{Binding ExecuteFlag}"
+                    />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+    
+    
+</ContentPage>
